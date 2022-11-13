@@ -1,0 +1,10 @@
+kumuluzee:
+  name: primerjalnik-cen
+  version: 1.0.0
+  env:
+    name: dev
+  datasources:
+      - jndi-name: jdbc/PrimerjalnikCenDS
+        connection-url: jdbc:postgresql://localhost:5432/primerjalnikcen
+        username: postgres
+        password: postgres
