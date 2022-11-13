@@ -47,11 +47,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.kumuluz.ee</groupId>
-            <artifactId>kumuluzee-core</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>si.fri.prpo.skupina02</groupId>
             <artifactId>storitve</artifactId>
         </dependency>
