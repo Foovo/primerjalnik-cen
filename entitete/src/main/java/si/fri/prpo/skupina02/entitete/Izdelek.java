@@ -9,7 +9,8 @@ import java.util.*;
         {
                 @NamedQuery(name = "Izdelek.getAll", query = "SELECT i FROM Izdelek i"),
                 @NamedQuery(name = "Izdelek.getAllFromKategorija", query = "SELECT i FROM Izdelek i WHERE i.kategorija = ?1"),
-                @NamedQuery(name = "Izdelek.getAllFromIme", query = "SELECT i FROM Izdelek i WHERE i.ime = ?1")
+                @NamedQuery(name = "Izdelek.getAllFromIme", query = "SELECT i FROM Izdelek i WHERE i.ime = ?1"),
+                @NamedQuery(name = "Izdelek.getById", query = "SELECT i FROM Izdelek i WHERE i.id = ?1")
         })
 public class Izdelek {
     @Id

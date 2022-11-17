@@ -7,7 +7,8 @@ import java.util.List;
 @NamedQueries(value = {
         @NamedQuery(name = "Uporabnik.getAll", query = "select u from Uporabnik u"),
         @NamedQuery(name = "Uporabnik.getByImePriimek", query = "SELECT u FROM Uporabnik u WHERE u.ime = ?1 AND u.priimek = ?2"),
-        @NamedQuery(name = "Uporabnik.getByUporabniskoIme", query = "SELECT u FROM Uporabnik u WHERE u.uporabnisko_ime = ?1")
+        @NamedQuery(name = "Uporabnik.getByUporabniskoIme", query = "SELECT u FROM Uporabnik u WHERE u.uporabnisko_ime = ?1"),
+        @NamedQuery(name = "Uporabnik.getById", query = "SELECT u FROM Uporabnik u WHERE u.id = ?1")
 })
 public class Uporabnik {
     @Id
@@ -20,6 +21,7 @@ public class Uporabnik {
 
     private String uporabnisko_ime;
 
+    //@JsonbTransient
     @OneToMany(mappedBy = "uporabnik")
     private List<Kosarica> kosarice;
 

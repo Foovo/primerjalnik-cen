@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina02.servleti;
 
 import org.hibernate.Hibernate;
+import si.fri.prpo.skupina02.storitve.KosaricaZrno;
 import si.fri.prpo.skupina02.storitve.UporabnikZrno;
 
 import javax.inject.Inject;
@@ -14,17 +15,22 @@ import java.io.IOException;
 public class JPAServlet extends HttpServlet {
     @Inject
     private UporabnikZrno uporabnikZrno;
+    @Inject
+    private KosaricaZrno kosaricaZrno;
 
     @Override
-    @Transactional
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var uporabniki = uporabnikZrno.getAll();
 
         var writer = resp.getWriter();
         for (var uporabnik : uporabniki) {
             writer.println(uporabnik);
-            Hibernate.initialize(uporabnik.getKosarice());
-            writer.println(uporabnik.getKosarice());
+            writer.println("Kosarice: ");
+            var kosarica = kosaricaZrno.getByUporabnik(uporabnik);
+            for(var k :  kosarica) {
+                writer.println(k.getId());
+            }
+            writer.println();
         }
     }
 }

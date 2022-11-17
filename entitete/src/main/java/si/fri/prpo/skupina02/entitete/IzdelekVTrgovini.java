@@ -7,7 +7,8 @@ import javax.persistence.*;
         {
                 @NamedQuery(name = "IzdelekVTrgovini.getAll", query = "SELECT i FROM IzdelekVTrgovini i"),
                 @NamedQuery(name = "IzdelekVTrgovini.getAllWhereCenaLessThan", query = "SELECT i FROM IzdelekVTrgovini i WHERE i.cena < ?1"),
-                @NamedQuery(name = "IzdelekVTrgovini.getAllFromTrgovina", query = "SELECT i FROM IzdelekVTrgovini i WHERE i.trgovina = ?1")
+                @NamedQuery(name = "IzdelekVTrgovini.getAllFromTrgovina", query = "SELECT i FROM IzdelekVTrgovini i WHERE i.trgovina = ?1"),
+                @NamedQuery(name = "IzdelekVTrgovini.getCenaFromTrgovina", query = "SELECT i.cena FROM IzdelekVTrgovini i WHERE i.izdelek = ?1 and i.trgovina = ?2")
         })
 public class IzdelekVTrgovini {
     @Id
@@ -17,9 +18,11 @@ public class IzdelekVTrgovini {
     private Double cena;
 
     @ManyToOne
+    @JoinColumn(name = "izdelek_id")
     private Izdelek izdelek;
 
     @ManyToOne
+    @JoinColumn(name = "trgovina_id")
     private Trgovina trgovina;
 
     public Integer getId() {

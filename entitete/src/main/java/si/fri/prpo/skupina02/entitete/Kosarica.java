@@ -8,7 +8,8 @@ import java.util.List;
         {
                 @NamedQuery(name = "Kosarica.getAll", query = "SELECT k FROM Kosarica k"),
                 @NamedQuery(name = "Kosarica.getKosaricaById", query = "SELECT k FROM Kosarica k WHERE k.id = ?1"),
-                @NamedQuery(name = "Kosarica.getKosaricaByUporabnik", query = "SELECT k FROM Kosarica k WHERE k.uporabnik = ?1")
+                @NamedQuery(name = "Kosarica.getKosaricaByUporabnik", query = "SELECT k FROM Kosarica k WHERE k.uporabnik = ?1"),
+                @NamedQuery(name = "Kosarica.getIzdelkiByUporabnik", query = "SELECT k.izdelki FROM Kosarica k WHERE k.uporabnik = ?1")
         })
 public class Kosarica {
 
@@ -19,7 +20,7 @@ public class Kosarica {
     @ManyToOne
     private Uporabnik uporabnik;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "izdelki_v_kosarici")
     private List<Izdelek> izdelki;
 
