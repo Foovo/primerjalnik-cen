@@ -5,6 +5,12 @@ import java.util.*;
 
 
 @Entity
+@NamedQueries(value =
+        {
+                @NamedQuery(name = "Izdelek.getAll", query = "SELECT i FROM Izdelek i"),
+                @NamedQuery(name = "Izdelek.getAllFromKategorija", query = "SELECT i FROM Izdelek i WHERE i.kategorija = ?1"),
+                @NamedQuery(name = "Izdelek.getAllFromIme", query = "SELECT i FROM Izdelek i WHERE i.ime = ?1")
+        })
 public class Izdelek {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

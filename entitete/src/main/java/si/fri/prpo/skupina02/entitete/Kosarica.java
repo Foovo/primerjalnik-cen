@@ -4,6 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQueries(value =
+        {
+                @NamedQuery(name = "Kosarica.getAll", query = "SELECT k FROM Kosarica k"),
+                @NamedQuery(name = "Kosarica.getKosaricaById", query = "SELECT k FROM Kosarica k WHERE k.id = ?1"),
+                @NamedQuery(name = "Kosarica.getKosaricaByUporabnik", query = "SELECT k FROM Kosarica k WHERE k.uporabnik = ?1")
+        })
 public class Kosarica {
 
     @Id

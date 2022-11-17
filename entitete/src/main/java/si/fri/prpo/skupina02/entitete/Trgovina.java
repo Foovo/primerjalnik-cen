@@ -4,6 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@NamedQueries(value =
+        {
+                @NamedQuery(name = "Trgovina.getAll", query = "SELECT t FROM Trgovina t"),
+                @NamedQuery(name = "Trgovina.getImeByLokacija", query = "SELECT t.ime FROM Trgovina t WHERE t.lokacija = ?1"),
+                @NamedQuery(name = "Trgovina.getIzdelkiById", query = "SELECT t.izdelki_v_trgovini FROM Trgovina t WHERE t.id = ?1")
+        })
 public class Trgovina {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

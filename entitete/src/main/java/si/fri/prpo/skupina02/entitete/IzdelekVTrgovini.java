@@ -3,6 +3,12 @@ package si.fri.prpo.skupina02.entitete;
 import javax.persistence.*;
 
 @Entity
+@NamedQueries(value =
+        {
+                @NamedQuery(name = "IzdelekVTrgovini.getAll", query = "SELECT i FROM IzdelekVTrgovini i"),
+                @NamedQuery(name = "IzdelekVTrgovini.getAllWhereCenaLessThan", query = "SELECT i FROM IzdelekVTrgovini i WHERE i.cena < ?1"),
+                @NamedQuery(name = "IzdelekVTrgovini.getAllFromTrgovina", query = "SELECT i FROM IzdelekVTrgovini i WHERE i.trgovina = ?1")
+        })
 public class IzdelekVTrgovini {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
