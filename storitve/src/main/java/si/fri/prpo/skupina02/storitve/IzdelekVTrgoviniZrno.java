@@ -4,11 +4,13 @@ import si.fri.prpo.skupina02.entitete.IzdelekVTrgovini;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.logging.Logger;
 
+@ApplicationScoped
 public class IzdelekVTrgoviniZrno {
 
     private Logger log = Logger.getLogger(IzdelekVTrgoviniZrno.class.getName());
