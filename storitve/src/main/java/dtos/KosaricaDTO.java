@@ -2,9 +2,10 @@ package dtos;
 
 import si.fri.prpo.skupina02.entitete.Izdelek;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class KosaricaDTO {
+public class KosaricaDTO implements Serializable {
     private Integer id;
     private Integer uporabnikId;
     private List<Integer> izdelki;

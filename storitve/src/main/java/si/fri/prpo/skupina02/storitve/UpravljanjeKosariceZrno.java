@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina02.storitve;
 
+import dtos.IzdelekDTO;
 import dtos.KosaricaDTO;
 import si.fri.prpo.skupina02.entitete.Izdelek;
 import si.fri.prpo.skupina02.entitete.Kosarica;
@@ -67,5 +68,41 @@ public class UpravljanjeKosariceZrno {
 
         kosaricaZrno.addKosarica(kosarica);
         return kosarica;
+    }
+
+    @Transactional
+    public void odstraniKosarico(KosaricaDTO kosaricaDTO) {
+        Kosarica kosarica = kosaricaZrno.getById(kosaricaDTO.getId());
+
+        if(kosarica == null) {
+            log.info("Ne najdem kosarice upsi ¯\\_(ツ)_/¯");
+            return;
+        }
+
+        Uporabnik u = kosarica.getUporabnik();
+        u.getKosarice().remove(kosarica);
+
+        List<Izdelek> izdelki = kosarica.getIzdelki();
+        for(var i : izdelki) {
+            i.getKosarice().remove(kosarica);
+        }
+
+        kosaricaZrno.deleteKosarica(kosarica.getId());
+    }
+
+    @Transactional
+    public void odstraniIzdelekIzKosarice(KosaricaDTO kosaricaDTO, IzdelekDTO izdelekDTO) {
+        Kosarica kosarica = kosaricaZrno.getById(kosaricaDTO.getId());
+        if(kosarica == null) {
+            log.info("Ne najdem kosarice upsi ¯\\_(ツ)_/¯");
+            return;
+        }
+
+        Izdelek izdelek = izdelekZrno.getById(izdelekDTO.getId());
+        if(izdelek == null) {
+            log.info("Ne najdem izdelka.");
+            return;
+        }
+        kosarica.getIzdelki().remove(izdelek);
     }
 }
