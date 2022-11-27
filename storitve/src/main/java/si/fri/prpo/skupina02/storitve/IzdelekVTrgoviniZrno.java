@@ -1,6 +1,8 @@
 package si.fri.prpo.skupina02.storitve;
 
+import si.fri.prpo.skupina02.entitete.Izdelek;
 import si.fri.prpo.skupina02.entitete.IzdelekVTrgovini;
+import si.fri.prpo.skupina02.entitete.Trgovina;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -8,6 +10,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -27,6 +30,34 @@ public class IzdelekVTrgoviniZrno {
 
     @PersistenceContext(name = "primerjalnik-cen-jpa")
     private EntityManager em;
+
+    @Transactional
+    public List<IzdelekVTrgoviniZrno> getAll() {
+        return em.createNamedQuery("IzdelekVTrgovini.getAll")
+                .getResultList();
+    }
+
+    @Transactional
+    public List<IzdelekVTrgoviniZrno> getAllWhereCenaLessThan(double cena) {
+        return em.createNamedQuery("IzdelekVTrgovini.getAllWhereCenaLessThan")
+                .setParameter(1, cena)
+                .getResultList();
+    }
+
+    @Transactional
+    public List<IzdelekVTrgoviniZrno> getAllFromTrgovina(Trgovina t) {
+        return em.createNamedQuery("IzdelekVTrgovini.getAllFromTrgovina")
+                .setParameter(1, t)
+                .getResultList();
+    }
+
+    @Transactional
+    public List<IzdelekVTrgoviniZrno> getCenaFromTrgovina(Izdelek i, Trgovina t) {
+        return em.createNamedQuery("IzdelekVTrgovini.getCenaFromTrgovina")
+                .setParameter(1, i)
+                .setParameter(2, t)
+                .getResultList();
+    }
 
     @Transactional
     public IzdelekVTrgovini getById(int id) {
@@ -50,11 +81,10 @@ public class IzdelekVTrgoviniZrno {
     }
 
     @Transactional
-    public void updateIzdelekVTrgovini(IzdelekVTrgovini izdelek, int id) {
-        IzdelekVTrgovini i = getById(id);
-        if(i != null && izdelek != null) {
-            izdelek.setId(id);
-            em.merge(i);
-        }
+    public void updateIzdelekVTrgovini(IzdelekVTrgovini izdelek) {
+        if (izdelek == null) return;
+        var i = getById(izdelek.getId());
+        if(i == null) return;
+        em.merge(izdelek);
     }
 }

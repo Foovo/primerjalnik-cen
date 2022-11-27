@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina02.storitve;
 
 import org.hibernate.Hibernate;
+import si.fri.prpo.skupina02.entitete.Izdelek;
 import si.fri.prpo.skupina02.entitete.Kosarica;
 import si.fri.prpo.skupina02.entitete.Uporabnik;
 
@@ -35,22 +36,22 @@ public class KosaricaZrno {
     private EntityManager em;
 
 
-    /*@Transactional
-    public List<Uporabnik> getAll() {
-        List<Uporabnik> list = em.createNamedQuery("Uporabnik.getAll").getResultList();
-        for (var u : list) {
-            Hibernate.initialize(u.getKosarice());
-        }
-
-        return  list;
-    }*/
+    @Transactional
+    public List<Kosarica> getAll() {
+        return em.createNamedQuery("Kosarica.getAll")
+                .getResultList();
+    }
 
     public List<Kosarica> getByUporabnik(Uporabnik u) {
+        return em.createNamedQuery("Kosarica.getKosaricaByUporabnik")
+            .setParameter(1, u)
+            .getResultList();
+    }
 
-        // implementacija
-        Query q = em.createNamedQuery("Kosarica.getKosaricaByUporabnik");
-        q.setParameter(1, u);
-        return q.getResultList();
+    public List<Izdelek> getIzdelkiInKosaricaByUporabniki(Uporabnik u) {
+        return em.createNamedQuery("Kosarica.getIzdelkiByUporabnik")
+                .setParameter(1, u)
+                .getResultList();
     }
 
     public List<Uporabnik> getIzdelkiCriteriaAPI() {
@@ -86,11 +87,10 @@ public class KosaricaZrno {
     }
 
     @Transactional
-    public void updateKosarica(Kosarica kosarica, int id) {
-        Kosarica k = getById(id);
-        if(k != null && kosarica != null) {
-            kosarica.setId(id);
-            em.merge(k);
-        }
+    public void updateKosarica(Kosarica kosarica) {
+        if (kosarica == null) return;
+        var i = getById(kosarica.getId());
+        if(i == null) return;
+        em.merge(kosarica);
     }
 }

@@ -38,7 +38,24 @@ public class UporabnikZrno {
         return q.getResultList();
     }
 
-    public List<Uporabnik> getIzdelkiCriteriaAPI() {
+    public List<Uporabnik> getByImePriimek(String ime, String priimek) {
+        return em.createNamedQuery("Uporabnik.getByImePriimek")
+                .setParameter(1, ime)
+                .setParameter(2, priimek)
+                .getResultList();
+    }
+
+    public Uporabnik getByUporabniskoIme(String ime) {
+        var maybe_uporabnik = em.createNamedQuery("Uporabnik.getByUporabniskoIme")
+                .setParameter(1, ime)
+                .getResultList();
+
+        if (maybe_uporabnik.size() != 1) return null;
+
+        return (Uporabnik) maybe_uporabnik.get(0);
+    }
+
+    public List<Uporabnik> getUporabnikiCriteriaAPI() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
 
         CriteriaQuery<Uporabnik> q = cb.createQuery(Uporabnik.class);
@@ -71,11 +88,10 @@ public class UporabnikZrno {
     }
 
     @Transactional
-    public void updateUporabnik(Uporabnik uporabnik, int id) { //objekt z id posodobi z uporabnikom
-        Uporabnik u = getById(id);
-        if(u != null && uporabnik != null) {
-            uporabnik.setId(id);
-            em.merge(u);
-        }
+    public void updateUporabnik(Uporabnik uporabnik) {
+        if (uporabnik == null) return;
+        var i = getById(uporabnik.getId());
+        if(i == null) return;
+        em.merge(uporabnik);
     }
 }
