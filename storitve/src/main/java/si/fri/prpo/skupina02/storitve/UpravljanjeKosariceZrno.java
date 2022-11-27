@@ -1,7 +1,7 @@
 package si.fri.prpo.skupina02.storitve;
 
 import dtos.IzdelekDTO;
-import dtos.KosaricaDTO;
+import si.fri.prpo.skupina02.dtos.KosaricaDTO;
 import si.fri.prpo.skupina02.entitete.Izdelek;
 import si.fri.prpo.skupina02.entitete.Kosarica;
 import si.fri.prpo.skupina02.entitete.Uporabnik;
@@ -10,8 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +32,11 @@ public class UpravljanjeKosariceZrno {
     @Inject
     private UporabnikZrno uporabnikZrno;
 
-    @Inject IzdelekZrno izdelekZrno;
+    @Inject
+    private IzdelekZrno izdelekZrno;
 
-    @Inject KosaricaZrno kosaricaZrno;
+    @Inject
+    private KosaricaZrno kosaricaZrno;
 
     @Transactional
     public Kosarica ustvariKosarico(KosaricaDTO kosaricaDTO) {
@@ -104,5 +104,29 @@ public class UpravljanjeKosariceZrno {
             return;
         }
         kosarica.getIzdelki().remove(izdelek);
+    }
+
+    @Transactional
+    public void odstraniKosarico(Integer id) {
+        var k = kosaricaZrno.getById(id);
+
+        if (k == null) {
+            log.warning("Kosarica za zbrisati ne obstaja");
+            return;
+        }
+
+        kosaricaZrno.deleteKosarica(id);
+    }
+
+    @Transactional
+    public List<Izdelek> vrniIzdelkeZaUporabniskoIme(String uime) {
+        Uporabnik u = uporabnikZrno.getByUporabniskoIme(uime);
+
+        if (u == null) {
+            log.warning("Uporabnisko ime za kosarice ne obstaja");
+            return null;
+        }
+
+        return kosaricaZrno.getIzdelkiInKosaricaByUporabniki(u);
     }
 }
