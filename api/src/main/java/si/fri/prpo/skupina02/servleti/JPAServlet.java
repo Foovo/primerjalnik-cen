@@ -1,16 +1,14 @@
 package si.fri.prpo.skupina02.servleti;
 
-import org.hibernate.Hibernate;
 import si.fri.prpo.skupina02.storitve.ApplicationScopedZrno;
-import si.fri.prpo.skupina02.storitve.KosaricaZrno;
+import si.fri.prpo.skupina02.storitve.crud.KosaricaZrno;
 import si.fri.prpo.skupina02.storitve.RequestScopedZrno;
-import si.fri.prpo.skupina02.storitve.UporabnikZrno;
+import si.fri.prpo.skupina02.storitve.crud.UporabnikZrno;
 
 import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-import javax.transaction.Transactional;
 import java.io.IOException;
 
 @WebServlet("/servlet")

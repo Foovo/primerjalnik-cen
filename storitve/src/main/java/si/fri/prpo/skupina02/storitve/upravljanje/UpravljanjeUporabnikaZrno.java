@@ -1,19 +1,17 @@
-package si.fri.prpo.skupina02.storitve;
+package si.fri.prpo.skupina02.storitve.upravljanje;
 
-import si.fri.prpo.skupina02.dtos.KosaricaDTO;
-import si.fri.prpo.skupina02.dtos.UporabnikDTO;
-import si.fri.prpo.skupina02.entitete.Izdelek;
-import si.fri.prpo.skupina02.entitete.Kosarica;
-import si.fri.prpo.skupina02.entitete.Uporabnik;
+import si.fri.prpo.skupina02.dtos.*;
+import si.fri.prpo.skupina02.entitete.*;
+import si.fri.prpo.skupina02.storitve.crud.*;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import javax.annotation.*;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
 
+@ApplicationScoped
 public class UpravljanjeUporabnikaZrno {
     private Logger log = Logger.getLogger(UpravljanjeUporabnikaZrno.class.getName());
 
@@ -33,27 +31,23 @@ public class UpravljanjeUporabnikaZrno {
     KosaricaZrno kosaricaZrno;
 
     @Transactional
-    public Uporabnik ustvariUporabnika(UporabnikDTO uporabnikDTO) {
-        if (uporabnikDTO.getIme().isEmpty()) {
+    public Uporabnik ustvariUporabnika(UstvariUporabnikaDTO ustvariUporabnikaDTO) {
+        if (ustvariUporabnikaDTO.getIme().isEmpty()) {
             log.warning("Uporabnik ima prazno ime");
         }
-        if (uporabnikDTO.getPriimek().isEmpty()) {
+        if (ustvariUporabnikaDTO.getPriimek().isEmpty()) {
             log.warning("Uporabnik ima prazen priimek");
         }
-        if (uporabnikZrno.getByUporabniskoIme(uporabnikDTO.getUporabnisko_ime()) != null) {
+        if (uporabnikZrno.getByUporabniskoIme(ustvariUporabnikaDTO.getUporabnisko_ime()) != null) {
             log.severe("Uporabnik z tem uporabniskim imenom ze obstaja");
-            return null;
-        }
-        if (uporabnikDTO.getKosarice().size() != 0) {
-            log.severe("Nov uporabnik ne mora imeti kosaric");
             return null;
         }
 
         Uporabnik uporabnik = new Uporabnik();
 
-        uporabnik.setIme(uporabnikDTO.getIme());
-        uporabnik.setPriimek(uporabnikDTO.getPriimek());
-        uporabnik.setUporabnisko_ime(uporabnikDTO.getUporabnisko_ime());
+        uporabnik.setIme(ustvariUporabnikaDTO.getIme());
+        uporabnik.setPriimek(ustvariUporabnikaDTO.getPriimek());
+        uporabnik.setUporabnisko_ime(ustvariUporabnikaDTO.getUporabnisko_ime());
         uporabnik.setKosarice(new ArrayList<Kosarica>());
 
         uporabnikZrno.addUporabnik(uporabnik);
@@ -61,26 +55,28 @@ public class UpravljanjeUporabnikaZrno {
     }
 
     @Transactional
-    public void odstraniUporabnika(UporabnikDTO uporabnikDTO) {
-        var u = uporabnikZrno.getById(uporabnikDTO.getId());
+    public void odstraniUporabnika(OdstraniUporabnikaDTO odstraniUporabnikaDTO) {
+        var u = uporabnikZrno.getById(odstraniUporabnikaDTO.getId());
 
         if (u == null) {
             log.warning("Uporabnik za zbrisati ne obstaja");
             return;
         }
 
-        uporabnikZrno.deleteUporabnik(uporabnikDTO.getId());
+        uporabnikZrno.deleteUporabnik(odstraniUporabnikaDTO.getId());
     }
 
     @Transactional
-    public void pocistiKosarice(UporabnikDTO u) {
+    public void odstraniKosarice(OdstraniKosariceUporabnikaDTO odstraniKosariceUporabnikaDTO) {
+        Uporabnik u = uporabnikZrno.getById(odstraniKosariceUporabnikaDTO.getId());
+
         if (u == null) {
             log.warning("Uporabnik za zbrisati kosarice ne obstaja");
             return;
         }
 
-        for (Integer k : u.getKosarice()) {
-            kosaricaZrno.deleteKosarica(k);
+        for (Kosarica k : u.getKosarice()) {
+            kosaricaZrno.deleteKosarica(k.getId());
         }
     }
 }
