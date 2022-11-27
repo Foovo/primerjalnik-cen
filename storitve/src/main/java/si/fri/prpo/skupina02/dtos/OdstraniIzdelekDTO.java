@@ -1,6 +1,8 @@
 package si.fri.prpo.skupina02.dtos;
 
-public class OdstraniIzdelekDTO {
+import java.io.Serializable;
+
+public class OdstraniIzdelekDTO implements Serializable {
     Integer id;
 
     public Integer getId() {

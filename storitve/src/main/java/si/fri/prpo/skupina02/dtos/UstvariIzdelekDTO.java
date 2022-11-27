@@ -2,7 +2,9 @@ package si.fri.prpo.skupina02.dtos;
 
 import si.fri.prpo.skupina02.entitete.Izdelek;
 
-public class UstvariIzdelekDTO {
+import java.io.Serializable;
+
+public class UstvariIzdelekDTO implements Serializable {
     public String getIme() {
         return ime;
     }

@@ -1,6 +1,8 @@
 package si.fri.prpo.skupina02.dtos;
 
-public class UstvariTrgovinoDTO {
+import java.io.Serializable;
+
+public class UstvariTrgovinoDTO implements Serializable {
     private String ime;
     private String lokacija;
     public String getIme() {

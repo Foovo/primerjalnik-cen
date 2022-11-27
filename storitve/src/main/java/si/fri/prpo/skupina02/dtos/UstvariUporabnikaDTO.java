@@ -1,8 +1,8 @@
 package si.fri.prpo.skupina02.dtos;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class UstvariUporabnikaDTO {
+public class UstvariUporabnikaDTO implements Serializable {
     private String ime;
     private String priimek;
     private String uporabnisko_ime;

@@ -1,6 +1,8 @@
 package si.fri.prpo.skupina02.dtos;
 
-public class DodajIzdelekVTrgovinoDTO {
+import java.io.Serializable;
+
+public class DodajIzdelekVTrgovinoDTO implements Serializable {
     Integer trgovinaId;
     Integer izdelekId;
     Double cena;

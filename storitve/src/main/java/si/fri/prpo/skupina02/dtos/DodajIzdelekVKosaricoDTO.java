@@ -1,6 +1,8 @@
 package si.fri.prpo.skupina02.dtos;
 
-public class DodajIzdelekVKosaricoDTO {
+import java.io.Serializable;
+
+public class DodajIzdelekVKosaricoDTO implements Serializable {
 
     public Integer getIzdelekId() {
         return izdelekId;
