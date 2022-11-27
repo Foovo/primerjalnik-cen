@@ -67,7 +67,7 @@ public class Izdelek {
         this.kosarice = kosarice;
     }
 
-    enum Kategorija {
+    public enum Kategorija {
         Gospodinjstvo,
         Racunalnistvo,
         Telefonija,
