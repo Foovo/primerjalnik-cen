@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina02.api.v1.viri;
 
 import si.fri.prpo.skupina02.entitete.Uporabnik;
+import si.fri.prpo.skupina02.storitve.anotacije.BeleziKlice;
 import si.fri.prpo.skupina02.storitve.crud.UporabnikZrno;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -38,7 +39,7 @@ public class UporabnikVir {
                 .build();
     }
 
-    @POST
+    @DELETE
     @Path("{id}")
     public Response odstraniUporabnika(@PathParam("id") Integer id){
         if(uporabnikZrno.deleteUporabnik(id)) {
@@ -52,7 +53,7 @@ public class UporabnikVir {
                 .build();
     }
 
-    @POST
+    @PUT
     public Response posodobiUporabnika(Uporabnik uporabnik){
         if(uporabnikZrno.updateUporabnik(uporabnik)) {
             return Response

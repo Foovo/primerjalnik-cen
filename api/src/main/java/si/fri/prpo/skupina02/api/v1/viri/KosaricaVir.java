@@ -38,7 +38,7 @@ public class KosaricaVir {
                 .build();
     }
 
-    @POST
+    @DELETE
     @Path("{id}")
     public Response odstraniKosarico(@PathParam("id") Integer id){
         if(kosaricaZrno.deleteKosarica(id)) {
@@ -52,7 +52,7 @@ public class KosaricaVir {
                 .build();
     }
 
-    @POST
+    @PUT
     public Response posodobiKosarico(Kosarica kosarica){
         if(kosaricaZrno.updateKosarica(kosarica)) {
             return Response

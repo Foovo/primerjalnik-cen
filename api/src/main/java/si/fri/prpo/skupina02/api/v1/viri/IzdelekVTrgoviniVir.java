@@ -38,7 +38,7 @@ public class IzdelekVTrgoviniVir {
                 .build();
     }
 
-    @POST
+    @DELETE
     @Path("{id}")
     public Response odstraniIzdelekVTrgovini(@PathParam("id") Integer id){
         if(izdelekVTrgoviniZrno.deleteIzdelekVTrgovini(id)) {
@@ -52,7 +52,7 @@ public class IzdelekVTrgoviniVir {
                 .build();
     }
 
-    @POST
+    @PUT
     public Response posodobiIzdelekVTrgovini(IzdelekVTrgovini izdelekVTrgovini){
         if(izdelekVTrgoviniZrno.updateIzdelekVTrgovini(izdelekVTrgovini)) {
             return Response
