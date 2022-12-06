@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina02.entitete;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 
 @Entity
@@ -17,10 +18,12 @@ public class IzdelekVTrgovini {
 
     private Double cena;
 
+    @JsonbTransient
     @ManyToOne
     @JoinColumn(name = "izdelek_id")
     private Izdelek izdelek;
 
+    @JsonbTransient
     @ManyToOne
     @JoinColumn(name = "trgovina_id")
     private Trgovina trgovina;

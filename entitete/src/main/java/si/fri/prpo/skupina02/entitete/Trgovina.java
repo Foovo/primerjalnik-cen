@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina02.entitete;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class Trgovina {
 
     private String lokacija;
 
+    @JsonbTransient
     @OneToMany(mappedBy = "trgovina")
     private List<IzdelekVTrgovini> izdelki_v_trgovini;
 

@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina02.entitete;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class Kosarica {
     @ManyToOne
     private Uporabnik uporabnik;
 
+    @JsonbTransient
     @ManyToMany()
     @JoinTable(name = "izdelki_v_kosarici")
     private List<Izdelek> izdelki;
