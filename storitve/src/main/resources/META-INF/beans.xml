@@ -4,6 +4,6 @@
        bean-discovery-mode="annotated">
 
     <interceptors>
-        <class>si.fri.prpo.skupina02.interceptorji.BelezenjeKlicevInterceptor</class>
+        <class>si.fri.prpo.skupina02.storitve.interceptorji.BelezenjeKlicevInterceptor</class>
     </interceptors>
 </beans>
