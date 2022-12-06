@@ -65,26 +65,32 @@ public class IzdelekVTrgoviniZrno {
     }
 
     @Transactional
-    public void deleteIzdelekVTrgovini(int id) {
+    public boolean deleteIzdelekVTrgovini(int id) {
         IzdelekVTrgovini izdelek = getById(id);
 
         if(izdelek != null) {
             em.remove(izdelek);
+            return true;
         }
+        return false;
     }
 
     @Transactional
-    public void addIzdelekVTrgovini(IzdelekVTrgovini izdelek) {
+    public boolean addIzdelekVTrgovini(IzdelekVTrgovini izdelek) {
         if(izdelek != null) {
             em.persist(izdelek);
+            return true;
         }
+        return false;
     }
 
     @Transactional
-    public void updateIzdelekVTrgovini(IzdelekVTrgovini izdelek) {
-        if (izdelek == null) return;
+    public boolean updateIzdelekVTrgovini(IzdelekVTrgovini izdelek) {
+        if (izdelek == null) return false;
         var i = getById(izdelek.getId());
-        if(i == null) return;
+        if(i == null) return false;
+
         em.merge(izdelek);
+        return true;
     }
 }

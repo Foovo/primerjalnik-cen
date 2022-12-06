@@ -59,26 +59,32 @@ public class TrgovinaZrno {
     }
 
     @Transactional
-    public void deleteTrgovina(int id) {
+    public boolean deleteTrgovina(int id) {
         Trgovina trgovina = getById(id);
 
         if(trgovina != null) {
             em.remove(trgovina);
+            return true;
         }
+        return false;
     }
 
     @Transactional
-    public void addTrgovina(Trgovina trgovina) {
+    public boolean addTrgovina(Trgovina trgovina) {
         if(trgovina != null) {
             em.persist(trgovina);
+            return true;
         }
+        return false;
     }
 
     @Transactional
-    public void updateTrgovina(Trgovina trgovina) {
-        if (trgovina == null) return;
+    public boolean updateTrgovina(Trgovina trgovina) {
+        if (trgovina == null) return false;
         var i = getById(trgovina.getId());
-        if(i == null) return;
+        if(i == null) return false;
+
         em.merge(trgovina);
+        return true;
     }
 }

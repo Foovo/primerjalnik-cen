@@ -69,26 +69,32 @@ public class KosaricaZrno {
     }
 
     @Transactional
-    public void deleteKosarica(int id) {
+    public boolean deleteKosarica(int id) {
         Kosarica kosarica = getById(id);
 
         if(kosarica != null) {
             em.remove(kosarica);
+            return true;
         }
+        return false;
     }
 
     @Transactional
-    public void addKosarica(Kosarica kosarica) {
+    public boolean addKosarica(Kosarica kosarica) {
         if(kosarica != null) {
             em.persist(kosarica);
+            return true;
         }
+        return false;
     }
 
     @Transactional
-    public void updateKosarica(Kosarica kosarica) {
-        if (kosarica == null) return;
+    public boolean updateKosarica(Kosarica kosarica) {
+        if (kosarica == null) return false;
         var i = getById(kosarica.getId());
-        if(i == null) return;
+        if(i == null) return false;
+
         em.merge(kosarica);
+        return true;
     }
 }

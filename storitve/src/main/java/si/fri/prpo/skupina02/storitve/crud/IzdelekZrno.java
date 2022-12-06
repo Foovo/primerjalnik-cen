@@ -55,26 +55,32 @@ public class IzdelekZrno {
     }
 
     @Transactional
-    public void deleteIzdelek(int id) {
+    public boolean deleteIzdelek(int id) {
         Izdelek izdelek = getById(id);
 
         if(izdelek != null) {
             em.remove(izdelek);
+            return true;
         }
+        return false;
     }
 
     @Transactional
-    public void addIzdelek(Izdelek izdelek) {
+    public boolean addIzdelek(Izdelek izdelek) {
         if(izdelek != null) {
             em.persist(izdelek);
+            return true;
         }
+        return false;
     }
 
     @Transactional
-    public void updateKosarica(Izdelek izdelek) {
-        if (izdelek == null) return;
+    public boolean updateIzdelek(Izdelek izdelek) {
+        if (izdelek == null) return false;
         var i = getById(izdelek.getId());
-        if(i == null) return;
+        if(i == null) return false;
+
         em.merge(izdelek);
+        return true;
     }
 }

@@ -70,26 +70,31 @@ public class UporabnikZrno {
     }
 
     @Transactional
-    public void deleteUporabnik(int id) {
+    public boolean deleteUporabnik(int id) {
         Uporabnik uporabnik = getById(id);
 
         if(uporabnik != null) {
             em.remove(uporabnik);
+            return true;
         }
+        return false;
     }
 
     @Transactional
-    public void addUporabnik(Uporabnik uporabnik) {
+    public Uporabnik addUporabnik(Uporabnik uporabnik) {
         if(uporabnik != null) {
             em.persist(uporabnik);
         }
+        return  uporabnik;
     }
 
     @Transactional
-    public void updateUporabnik(Uporabnik uporabnik) {
-        if (uporabnik == null) return;
+    public boolean updateUporabnik(Uporabnik uporabnik) {
+        if (uporabnik == null) return false;
         var i = getById(uporabnik.getId());
-        if(i == null) return;
+        if(i == null) return false;
+
         em.merge(uporabnik);
+        return true;
     }
 }
