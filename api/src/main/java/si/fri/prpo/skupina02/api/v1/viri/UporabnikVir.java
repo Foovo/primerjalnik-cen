@@ -19,6 +19,7 @@ public class UporabnikVir {
     @Inject
     private UporabnikZrno uporabnikZrno;
 
+    @BeleziKlice
     @GET
     @Path("{id}")
     public Response pridobiUporabnika(@PathParam("id") Integer id) {
@@ -30,6 +31,7 @@ public class UporabnikVir {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    @BeleziKlice
     @POST
     public Response dodajUporabnika(Uporabnik uporabnik){
 
@@ -39,6 +41,7 @@ public class UporabnikVir {
                 .build();
     }
 
+    @BeleziKlice
     @DELETE
     @Path("{id}")
     public Response odstraniUporabnika(@PathParam("id") Integer id){
@@ -53,6 +56,7 @@ public class UporabnikVir {
                 .build();
     }
 
+    @BeleziKlice
     @PUT
     public Response posodobiUporabnika(Uporabnik uporabnik){
         if(uporabnikZrno.updateUporabnik(uporabnik)) {

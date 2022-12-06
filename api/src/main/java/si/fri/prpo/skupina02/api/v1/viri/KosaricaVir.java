@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina02.api.v1.viri;
 
 import si.fri.prpo.skupina02.entitete.Kosarica;
+import si.fri.prpo.skupina02.storitve.anotacije.BeleziKlice;
 import si.fri.prpo.skupina02.storitve.crud.KosaricaZrno;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -18,6 +19,7 @@ public class KosaricaVir {
     @Inject
     private KosaricaZrno kosaricaZrno;
 
+    @BeleziKlice
     @GET
     @Path("{id}")
     public Response pridobiKosarico(@PathParam("id") Integer id) {
@@ -29,6 +31,7 @@ public class KosaricaVir {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    @BeleziKlice
     @POST
     public Response dodajKosarico(Kosarica kosarica){
 
@@ -38,6 +41,7 @@ public class KosaricaVir {
                 .build();
     }
 
+    @BeleziKlice
     @DELETE
     @Path("{id}")
     public Response odstraniKosarico(@PathParam("id") Integer id){
@@ -52,6 +56,7 @@ public class KosaricaVir {
                 .build();
     }
 
+    @BeleziKlice
     @PUT
     public Response posodobiKosarico(Kosarica kosarica){
         if(kosaricaZrno.updateKosarica(kosarica)) {

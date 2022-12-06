@@ -1,6 +1,7 @@
 package si.fri.prpo.skupina02.api.v1.viri;
 
 import si.fri.prpo.skupina02.entitete.Izdelek;
+import si.fri.prpo.skupina02.storitve.anotacije.BeleziKlice;
 import si.fri.prpo.skupina02.storitve.crud.IzdelekZrno;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -18,6 +19,7 @@ public class IzdelekVir {
     @Inject
     private IzdelekZrno izdelekZrno;
 
+    @BeleziKlice
     @GET
     @Path("{id}")
     public Response pridobiIzdelek(@PathParam("id") Integer id) {
@@ -29,6 +31,7 @@ public class IzdelekVir {
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
+    @BeleziKlice
     @POST
     public Response dodajIzdelekVTrgovini(Izdelek izdelek){
 
@@ -38,6 +41,7 @@ public class IzdelekVir {
                 .build();
     }
 
+    @BeleziKlice
     @DELETE
     @Path("{id}")
     public Response odstraniIzdelek(@PathParam("id") Integer id){
@@ -52,6 +56,7 @@ public class IzdelekVir {
                 .build();
     }
 
+    @BeleziKlice
     @PUT
     public Response posodobiIzdelek(Izdelek izdelek){
         if(izdelekZrno.updateIzdelek(izdelek)) {
