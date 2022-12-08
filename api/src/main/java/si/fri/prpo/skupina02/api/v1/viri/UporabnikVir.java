@@ -2,9 +2,23 @@ package si.fri.prpo.skupina02.api.v1.viri;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.openapi.annotations.*;
+import org.eclipse.microprofile.openapi.annotations.headers.Header;
+import org.eclipse.microprofile.openapi.annotations.info.Contact;
+import org.eclipse.microprofile.openapi.annotations.info.Info;
+import org.eclipse.microprofile.openapi.annotations.info.License;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Encoding;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
+import org.eclipse.microprofile.openapi.annotations.servers.Server;
+import si.fri.prpo.skupina02.dtos.UstvariUporabnikaDTO;
 import si.fri.prpo.skupina02.entitete.Uporabnik;
 import si.fri.prpo.skupina02.storitve.anotacije.BeleziKlice;
 import si.fri.prpo.skupina02.storitve.crud.UporabnikZrno;
+import si.fri.prpo.skupina02.storitve.upravljanje.UpravljanjeUporabnikaZrno;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -23,11 +37,28 @@ public class UporabnikVir {
     @Inject
     private UporabnikZrno uporabnikZrno;
 
+    @Inject
+    private UpravljanjeUporabnikaZrno upravljanjeUporabnikaZrno;
+
     @Context
     protected UriInfo uriInfo;
 
     @BeleziKlice
     @GET
+    @Operation(summary = "Pridobi uporabnike", description = "Vrne uporabnike.")
+    @APIResponses({
+        @APIResponse(
+            description = "Uporabniki",
+            responseCode = "200 OK",
+            content = @Content(
+                schema = @Schema(allOf = Uporabnik.class),
+                encoding = @Encoding(headers = {
+                    @Header(name = "X-Total-Count", description = "Število vrnjenih uporabnikov")
+                }
+            )
+            )
+        )
+    })
     public Response pridobiUporabnike() {
         QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
         var entitete = uporabnikZrno.get(query);
@@ -41,6 +72,20 @@ public class UporabnikVir {
     @BeleziKlice
     @GET
     @Path("{id}")
+    @Operation(summary = "Pridobi uporabnika", description = "Vrne uporabnika z id.")
+    @APIResponses({
+            @APIResponse(
+                    description = "Uporabniki",
+                    responseCode = "200 OK",
+                    content = @Content(
+                            schema = @Schema(implementation = Uporabnik.class)
+                    )
+            ),
+            @APIResponse (
+                    description = "Uporabnik ne obstaja",
+                    responseCode = "404 NOT FOUND"
+            )
+    })
     public Response pridobiUporabnika(@PathParam("id") Integer id) {
         Uporabnik uporabnik = uporabnikZrno.getById(id);
         if(uporabnik != null) {
@@ -51,17 +96,50 @@ public class UporabnikVir {
 
     @BeleziKlice
     @POST
-    public Response dodajUporabnika(Uporabnik uporabnik){
+    @Operation(summary = "Ustvari uporabnika", description = "Ustvari novega uporabnika")
+    @APIResponses({
+            @APIResponse(
+                    description = "Uporabniki",
+                    responseCode = "200 OK",
+                    content = @Content(
+                            schema = @Schema(implementation = Uporabnik.class)
+                    )
+            ),
+            @APIResponse (
+                    description = "Napaka pri ustvarjanju uporabnika",
+                    responseCode = "400 BAD REQUEST"
+            )
+    })
+    public Response dodajUporabnika(UstvariUporabnikaDTO ustvariUporabnikaDTO){
+
+        var uporabnik = upravljanjeUporabnikaZrno.ustvariUporabnika(ustvariUporabnikaDTO);
+
+        if (uporabnik == null) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .build();
+        }
 
         return Response
                 .status(Response.Status.CREATED)
-                .entity(uporabnikZrno.addUporabnik(uporabnik))
+                .entity(uporabnik)
                 .build();
     }
 
     @BeleziKlice
     @DELETE
     @Path("{id}")
+    @Operation(summary = "Odstrani uporabnika", description = "Odstrani uporabnika")
+    @APIResponses({
+            @APIResponse(
+                    description = "Uporabnik odstranjen",
+                    responseCode = "200 OK"
+            ),
+            @APIResponse (
+                    description = "Uporabnik ne obstaja",
+                    responseCode = "404 NOT FOUND"
+            )
+    })
     public Response odstraniUporabnika(@PathParam("id") Integer id){
         if(uporabnikZrno.deleteUporabnik(id)) {
             return Response
@@ -76,6 +154,17 @@ public class UporabnikVir {
 
     @BeleziKlice
     @PUT
+    @Operation(summary = "Posodobi uporabnika", description = "Posodobi uporabnika")
+    @APIResponses({
+            @APIResponse(
+                    description = "Uporabnik posodobljen",
+                    responseCode = "200 OK"
+            ),
+            @APIResponse (
+                    description = "Uporabnik ne obstaja",
+                    responseCode = "404 NOT FOUND"
+            )
+    })
     public Response posodobiUporabnika(Uporabnik uporabnik){
         if(uporabnikZrno.updateUporabnik(uporabnik)) {
             return Response

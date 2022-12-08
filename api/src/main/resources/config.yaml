@@ -8,3 +8,9 @@ kumuluzee:
         connection-url: jdbc:postgresql://localhost:5432/primerjalnikcen
         username: postgres
         password: postgres
+  openapi-mp:
+    enabled: true
+    ui:
+      server-auto-config:
+        enabled: true
+        original-uri-check: true
