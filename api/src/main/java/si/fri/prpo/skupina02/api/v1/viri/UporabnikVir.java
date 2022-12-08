@@ -17,6 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.servers.Server;
 import si.fri.prpo.skupina02.dtos.UstvariUporabnikaDTO;
 import si.fri.prpo.skupina02.entitete.Uporabnik;
 import si.fri.prpo.skupina02.storitve.anotacije.BeleziKlice;
+import si.fri.prpo.skupina02.storitve.anotacije.ValidirajUstvariUporabnikaDTO;
 import si.fri.prpo.skupina02.storitve.crud.UporabnikZrno;
 import si.fri.prpo.skupina02.storitve.upravljanje.UpravljanjeUporabnikaZrno;
 
@@ -110,6 +111,7 @@ public class UporabnikVir {
                     responseCode = "400 BAD REQUEST"
             )
     })
+    @ValidirajUstvariUporabnikaDTO
     public Response dodajUporabnika(UstvariUporabnikaDTO ustvariUporabnikaDTO){
 
         var uporabnik = upravljanjeUporabnikaZrno.ustvariUporabnika(ustvariUporabnikaDTO);
