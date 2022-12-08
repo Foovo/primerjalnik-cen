@@ -14,6 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kumuluzee.version>4.1.0</kumuluzee.version>
         <postgres.version>42.5.0</postgres.version>
+        <kumuluzee-rest.version>1.5.1</kumuluzee-rest.version>
     </properties>
 
     <packaging>pom</packaging>
@@ -54,6 +55,12 @@
                 <groupId>si.fri.prpo.skupina02</groupId>
                 <artifactId>api</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.kumuluz.ee.rest</groupId>
+                <artifactId>kumuluzee-rest-core</artifactId>
+                <version>${kumuluzee-rest.version}</version>
             </dependency>
 
         </dependencies>
