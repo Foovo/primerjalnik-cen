@@ -24,7 +24,6 @@ public class UporabnikVir {
     @Path("{id}")
     public Response pridobiUporabnika(@PathParam("id") Integer id) {
         Uporabnik uporabnik = uporabnikZrno.getById(id);
-
         if(uporabnik != null) {
             return Response.ok(uporabnik).build();
         }
