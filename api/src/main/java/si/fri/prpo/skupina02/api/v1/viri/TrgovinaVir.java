@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina02.api.v1.viri;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
 import si.fri.prpo.skupina02.entitete.Trgovina;
 import si.fri.prpo.skupina02.storitve.anotacije.BeleziKlice;
 import si.fri.prpo.skupina02.storitve.crud.TrgovinaZrno;
@@ -7,8 +8,10 @@ import si.fri.prpo.skupina02.storitve.crud.TrgovinaZrno;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 @ApplicationScoped
 @Path("trgovina")
@@ -18,6 +21,21 @@ import javax.ws.rs.core.Response;
 public class TrgovinaVir {
     @Inject
     private TrgovinaZrno trgovinaZrno;
+
+    @Context
+    protected UriInfo uriInfo;
+
+    @BeleziKlice
+    @GET
+    public Response pridobiUporabnike() {
+        QueryParameters query = QueryParameters.query(uriInfo.getRequestUri().getQuery()).build();
+        var entitete = trgovinaZrno.get(query);
+        var entitete_count = trgovinaZrno.getCount(query);
+        return Response
+                .ok(entitete)
+                .header("X-Total-Count", entitete_count)
+                .build();
+    }
 
     @BeleziKlice
     @GET

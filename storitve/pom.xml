@@ -30,6 +30,10 @@
             <groupId>si.fri.prpo.skupina02</groupId>
             <artifactId>entitete</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.rest</groupId>
+            <artifactId>kumuluzee-rest-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

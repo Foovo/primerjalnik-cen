@@ -1,7 +1,10 @@
 package si.fri.prpo.skupina02.storitve.crud;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.skupina02.entitete.IzdelekVTrgovini;
 import si.fri.prpo.skupina02.entitete.Trgovina;
+import si.fri.prpo.skupina02.entitete.Uporabnik;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -30,6 +33,16 @@ public class TrgovinaZrno {
     @PersistenceContext(name = "primerjalnik-cen-jpa")
     private EntityManager em;
 
+    public List<Trgovina> get(QueryParameters query) {
+        return JPAUtils.queryEntities(em, Trgovina.class, query);
+    }
+
+    @Transactional
+    public long getCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, Trgovina.class, query);
+    }
+
+    @Transactional
     public List<Trgovina> getAll() {
         return em.createNamedQuery("Trgovina.getAll")
                 .getResultList();

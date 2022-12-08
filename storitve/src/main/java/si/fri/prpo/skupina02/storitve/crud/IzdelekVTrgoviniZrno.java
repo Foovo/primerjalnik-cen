@@ -1,8 +1,11 @@
 package si.fri.prpo.skupina02.storitve.crud;
 
+import com.kumuluz.ee.rest.beans.QueryParameters;
+import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.prpo.skupina02.entitete.Izdelek;
 import si.fri.prpo.skupina02.entitete.IzdelekVTrgovini;
 import si.fri.prpo.skupina02.entitete.Trgovina;
+import si.fri.prpo.skupina02.entitete.Uporabnik;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -57,6 +60,16 @@ public class IzdelekVTrgoviniZrno {
                 .setParameter(1, i)
                 .setParameter(2, t)
                 .getResultList();
+    }
+
+    @Transactional
+    public List<IzdelekVTrgovini> get(QueryParameters query) {
+        return JPAUtils.queryEntities(em, IzdelekVTrgovini.class, query);
+    }
+
+    @Transactional
+    public long getCount(QueryParameters query) {
+        return JPAUtils.queryEntitiesCount(em, IzdelekVTrgovini.class, query);
     }
 
     @Transactional
