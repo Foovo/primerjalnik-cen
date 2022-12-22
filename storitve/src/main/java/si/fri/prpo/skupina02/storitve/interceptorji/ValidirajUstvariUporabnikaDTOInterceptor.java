@@ -4,6 +4,7 @@ import si.fri.prpo.skupina02.dtos.UstvariTrgovinoDTO;
 import si.fri.prpo.skupina02.dtos.UstvariUporabnikaDTO;
 import si.fri.prpo.skupina02.storitve.ApplicationScopedZrno;
 import si.fri.prpo.skupina02.storitve.anotacije.BeleziKlice;
+import si.fri.prpo.skupina02.storitve.anotacije.ValidirajUstvariUporabnikaDTO;
 import si.fri.prpo.skupina02.storitve.crud.BelezenjeKlicevZrno;
 import si.fri.prpo.skupina02.storitve.izjeme.NeveljavenUstvariUporabnikaDTOIzjema;
 
@@ -16,8 +17,8 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 @Interceptor
-@BeleziKlice
-@Priority(0)
+@ValidirajUstvariUporabnikaDTO
+@Priority(1)
 public class ValidirajUstvariUporabnikaDTOInterceptor {
     private Logger log = Logger.getLogger(ValidirajUstvariUporabnikaDTOInterceptor.class.getName());
 
