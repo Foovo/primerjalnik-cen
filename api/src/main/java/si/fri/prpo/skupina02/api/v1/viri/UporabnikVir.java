@@ -24,6 +24,8 @@ import si.fri.prpo.skupina02.storitve.upravljanje.UpravljanjeUporabnikaZrno;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -89,6 +91,7 @@ public class UporabnikVir {
     })
     public Response pridobiUporabnika(@PathParam("id") Integer id) {
         Uporabnik uporabnik = uporabnikZrno.getById(id);
+
         if(uporabnik != null) {
             return Response.ok(uporabnik).build();
         }
@@ -177,5 +180,36 @@ public class UporabnikVir {
         return Response
                 .status(Response.Status.NOT_FOUND)
                 .build();
+    }
+
+    @BeleziKlice
+    @GET
+    @Path("{id}/avatar")
+    @Operation(summary = "Pridobi avatar uporabnika", description = "Vrne avatar uporabnika z id.")
+    @APIResponses({
+            @APIResponse(
+                    description = "Avatar",
+                    responseCode = "200 OK"
+            ),
+            @APIResponse (
+                    description = "Uporabnik ne obstaja",
+                    responseCode = "404 NOT FOUND"
+            )
+    })
+
+    @Produces(MediaType.APPLICATION_SVG_XML)
+    public Response pridobiAvatar(@PathParam("id") Integer id) {
+        Uporabnik uporabnik = uporabnikZrno.getById(id);
+        if(uporabnik != null) {
+            Client client = ClientBuilder.newClient();
+            String url = "https://avatars.dicebear.com/api/avataaars/"+ uporabnik.getUporabnisko_ime()+".svg";
+            String name = client.target(url)
+                    .request(MediaType.TEXT_PLAIN)
+                    .get(String.class);
+
+            return Response.ok(name).type(new MediaType("image", "svg+xml")).build();
+        }
+
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 }
