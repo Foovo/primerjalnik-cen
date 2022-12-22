@@ -5,5 +5,6 @@
 
     <interceptors>
         <class>si.fri.prpo.skupina02.storitve.interceptorji.BelezenjeKlicevInterceptor</class>
+        <class>si.fri.prpo.skupina02.storitve.interceptorji.ValidirajUstvariUporabnikaDTOInterceptor</class>
     </interceptors>
 </beans>

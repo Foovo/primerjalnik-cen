@@ -104,7 +104,7 @@ public class UporabnikVir {
     @APIResponses({
             @APIResponse(
                     description = "Uporabniki",
-                    responseCode = "200 OK",
+                    responseCode = "201 CREATED",
                     content = @Content(
                             schema = @Schema(implementation = Uporabnik.class)
                     )
