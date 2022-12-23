@@ -5,7 +5,7 @@ kumuluzee:
     name: dev
   datasources:
       - jndi-name: jdbc/PrimerjalnikCenDS
-        connection-url: jdbc:postgresql://localhost:5432/primerjalnikcen
+        connection-url: jdbc:postgresql://172.17.0.1:5432/primerjalnikcen
         username: postgres
         password: postgres
   openapi-mp:
