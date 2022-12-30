@@ -45,7 +45,7 @@ public class TrgovinaVir {
     @APIResponses({
             @APIResponse(
                     description = "Trgovine",
-                    responseCode = "200 OK",
+                    responseCode = "200",
                     content = @Content(
                             schema = @Schema(allOf = Trgovina.class),
                             encoding = @Encoding(headers = {
@@ -72,14 +72,14 @@ public class TrgovinaVir {
     @APIResponses({
             @APIResponse(
                     description = "Trgovina",
-                    responseCode = "200 OK",
+                    responseCode = "200",
                     content = @Content(
                             schema = @Schema(implementation = Trgovina.class)
                     )
             ),
             @APIResponse (
                     description = "Trgovina ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response pridobiTrgovino(@PathParam("id") Integer id) {
@@ -97,14 +97,14 @@ public class TrgovinaVir {
     @APIResponses({
             @APIResponse(
                     description = "Trgovina",
-                    responseCode = "200 OK",
+                    responseCode = "201",
                     content = @Content(
                             schema = @Schema(implementation = Trgovina.class)
                     )
             ),
             @APIResponse (
                     description = "Napaka pri ustvarjanju trgovine",
-                    responseCode = "400 BAD REQUEST"
+                    responseCode = "400"
             )
     })
     public Response dodajTrgovino(UstvariTrgovinoDTO ustvariTrgovinoDTO){
@@ -130,11 +130,11 @@ public class TrgovinaVir {
     @APIResponses({
             @APIResponse(
                     description = "Trgovina odstranjena",
-                    responseCode = "200 OK"
+                    responseCode = "200"
             ),
             @APIResponse (
                     description = "Trgovina ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response odstraniTrgovino(@PathParam("id") Integer id){
@@ -155,11 +155,11 @@ public class TrgovinaVir {
     @APIResponses({
             @APIResponse(
                     description = "Trgovina posodobljena",
-                    responseCode = "200 OK"
+                    responseCode = "200"
             ),
             @APIResponse (
                     description = "Trgovina ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response posodobiTrgovino(Trgovina trgovina){

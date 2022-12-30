@@ -45,7 +45,7 @@ public class IzdelekVir {
     @APIResponses({
             @APIResponse(
                     description = "Izdelki",
-                    responseCode = "200 OK",
+                    responseCode = "200",
                     content = @Content(
                             schema = @Schema(allOf = Izdelek.class),
                             encoding = @Encoding(headers = {
@@ -72,14 +72,14 @@ public class IzdelekVir {
     @APIResponses({
             @APIResponse(
                     description = "Izdelk",
-                    responseCode = "200 OK",
+                    responseCode = "200",
                     content = @Content(
                             schema = @Schema(implementation = Izdelek.class)
                     )
             ),
             @APIResponse (
                     description = "Izdelek ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response pridobiIzdelek(@PathParam("id") Integer id) {
@@ -97,14 +97,14 @@ public class IzdelekVir {
     @APIResponses({
             @APIResponse(
                     description = "Izdelek",
-                    responseCode = "200 OK",
+                    responseCode = "201",
                     content = @Content(
                             schema = @Schema(implementation = Uporabnik.class)
                     )
             ),
             @APIResponse (
                     description = "Napaka pri ustvarjanju izdelka",
-                    responseCode = "400 BAD REQUEST"
+                    responseCode = "400"
             )
     })
     public Response dodajIzdelek(UstvariIzdelekDTO ustvariIzdelekDTO){
@@ -130,11 +130,11 @@ public class IzdelekVir {
     @APIResponses({
             @APIResponse(
                     description = "Izdelek odstranjen",
-                    responseCode = "200 OK"
+                    responseCode = "200"
             ),
             @APIResponse (
                     description = "Izdelek ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response odstraniIzdelek(@PathParam("id") Integer id){
@@ -155,11 +155,11 @@ public class IzdelekVir {
     @APIResponses({
             @APIResponse(
                     description = "Izdelek posodobljen",
-                    responseCode = "200 OK"
+                    responseCode = "200"
             ),
             @APIResponse (
                     description = "Izdelek ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response posodobiIzdelek(Izdelek izdelek){

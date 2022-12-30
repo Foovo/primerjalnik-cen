@@ -45,7 +45,7 @@ public class KosaricaVir {
     @APIResponses({
             @APIResponse(
                     description = "Košarice",
-                    responseCode = "200 OK",
+                    responseCode = "200",
                     content = @Content(
                             schema = @Schema(allOf = Kosarica.class),
                             encoding = @Encoding(headers = {
@@ -72,14 +72,14 @@ public class KosaricaVir {
     @APIResponses({
             @APIResponse(
                     description = "Košarica",
-                    responseCode = "200 OK",
+                    responseCode = "200",
                     content = @Content(
                             schema = @Schema(implementation = Kosarica.class)
                     )
             ),
             @APIResponse (
                     description = "Košarica ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response pridobiKosarico(@PathParam("id") Integer id) {
@@ -98,14 +98,14 @@ public class KosaricaVir {
     @APIResponses({
             @APIResponse(
                     description = "Košarica",
-                    responseCode = "200 OK",
+                    responseCode = "201",
                     content = @Content(
                             schema = @Schema(implementation = Kosarica.class)
                     )
             ),
             @APIResponse (
                     description = "Napaka pri ustvarjanju košarice",
-                    responseCode = "400 BAD REQUEST"
+                    responseCode = "400"
             )
     })
     public Response dodajKosarico(UstvariKosaricoDTO ustvariKosaricoDTO){
@@ -131,11 +131,11 @@ public class KosaricaVir {
     @APIResponses({
             @APIResponse(
                     description = "Košarica odstranjena",
-                    responseCode = "200 OK"
+                    responseCode = "200"
             ),
             @APIResponse (
                     description = "Košarica ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response odstraniKosarico(@PathParam("id") Integer id){
@@ -156,11 +156,11 @@ public class KosaricaVir {
     @APIResponses({
             @APIResponse(
                     description = "Košarica posodobljena",
-                    responseCode = "200 OK"
+                    responseCode = "200"
             ),
             @APIResponse (
                     description = "Košarica ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response posodobiKosarico(Kosarica kosarica){

@@ -54,7 +54,7 @@ public class UporabnikVir {
     @APIResponses({
         @APIResponse(
             description = "Uporabniki",
-            responseCode = "200 OK",
+            responseCode = "200",
             content = @Content(
                 schema = @Schema(allOf = Uporabnik.class),
                 encoding = @Encoding(headers = {
@@ -81,14 +81,14 @@ public class UporabnikVir {
     @APIResponses({
             @APIResponse(
                     description = "Uporabniki",
-                    responseCode = "200 OK",
+                    responseCode = "200",
                     content = @Content(
                             schema = @Schema(implementation = Uporabnik.class)
                     )
             ),
             @APIResponse (
                     description = "Uporabnik ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response pridobiUporabnika(@PathParam("id") Integer id) {
@@ -106,14 +106,14 @@ public class UporabnikVir {
     @APIResponses({
             @APIResponse(
                     description = "Uporabniki",
-                    responseCode = "201 CREATED",
+                    responseCode = "201",
                     content = @Content(
                             schema = @Schema(implementation = Uporabnik.class)
                     )
             ),
             @APIResponse (
                     description = "Napaka pri ustvarjanju uporabnika",
-                    responseCode = "400 BAD REQUEST"
+                    responseCode = "400"
             )
     })
     @ValidirajUstvariUporabnikaDTO
@@ -140,11 +140,11 @@ public class UporabnikVir {
     @APIResponses({
             @APIResponse(
                     description = "Uporabnik odstranjen",
-                    responseCode = "200 OK"
+                    responseCode = "200"
             ),
             @APIResponse (
                     description = "Uporabnik ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response odstraniUporabnika(@PathParam("id") Integer id){
@@ -165,11 +165,11 @@ public class UporabnikVir {
     @APIResponses({
             @APIResponse(
                     description = "Uporabnik posodobljen",
-                    responseCode = "200 OK"
+                    responseCode = "200"
             ),
             @APIResponse (
                     description = "Uporabnik ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
     public Response posodobiUporabnika(Uporabnik uporabnik){
@@ -191,11 +191,11 @@ public class UporabnikVir {
     @APIResponses({
             @APIResponse(
                     description = "Avatar",
-                    responseCode = "200 OK"
+                    responseCode = "200"
             ),
             @APIResponse (
                     description = "Uporabnik ne obstaja",
-                    responseCode = "404 NOT FOUND"
+                    responseCode = "404"
             )
     })
 
