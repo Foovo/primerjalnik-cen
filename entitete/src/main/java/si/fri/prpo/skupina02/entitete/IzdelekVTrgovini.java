@@ -18,12 +18,10 @@ public class IzdelekVTrgovini {
 
     private Double cena;
 
-    @JsonbTransient
     @ManyToOne
     @JoinColumn(name = "izdelek_id")
     private Izdelek izdelek;
 
-    @JsonbTransient
     @ManyToOne
     @JoinColumn(name = "trgovina_id")
     private Trgovina trgovina;

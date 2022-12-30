@@ -21,8 +21,7 @@ public class Kosarica {
     @ManyToOne
     private Uporabnik uporabnik;
 
-    @JsonbTransient
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "izdelki_v_kosarici")
     private List<Izdelek> izdelki;
 

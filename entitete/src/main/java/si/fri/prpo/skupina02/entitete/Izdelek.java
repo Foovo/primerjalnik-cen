@@ -54,10 +54,12 @@ public class Izdelek {
         this.kategorija = kategorija;
     }
 
+    @JsonbTransient
     public List<IzdelekVTrgovini> getIzdelekVVsehtrgovinah() {
         return v_trgovinah;
     }
 
+    @JsonbTransient
     public void setIzdelekVTrgovinah(List<IzdelekVTrgovini> v_trgovinah) {
         this.v_trgovinah = v_trgovinah;
     }
