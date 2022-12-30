@@ -86,6 +86,11 @@
             <artifactId>kumuluzee-config-mp</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.kumuluz.ee.cors</groupId>
+            <artifactId>kumuluzee-cors</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

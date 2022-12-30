@@ -1,5 +1,6 @@
 package si.fri.prpo.skupina02.api.v1.viri;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import org.eclipse.microprofile.openapi.annotations.*;
@@ -35,6 +36,7 @@ import javax.ws.rs.core.UriInfo;
 @Path("uporabnik")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
+@CrossOrigin(supportedMethods = "GET, POST, PUT, DELETE")
 public class UporabnikVir {
 
     @Inject
