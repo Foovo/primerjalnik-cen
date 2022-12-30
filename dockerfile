@@ -13,6 +13,7 @@ ENTRYPOINT ["java", "-jar", "api-1.0-SNAPSHOT.jar"]
 
 #Za DockerHub:
 #docker login
+#mvn clean package
 #docker build -t primerjalnikcen .
 #docker tag primerjalnikcen {username}/primerjalnikcen
 #docker push {username}/primerjalnikcen
