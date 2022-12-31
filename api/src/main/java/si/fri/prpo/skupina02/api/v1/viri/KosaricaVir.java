@@ -131,7 +131,10 @@ public class KosaricaVir {
     @APIResponses({
             @APIResponse(
                     description = "Košarica odstranjena",
-                    responseCode = "200"
+                    responseCode = "200",
+                    content = @Content(
+                            schema = @Schema(implementation = Integer.class)
+                    )
             ),
             @APIResponse (
                     description = "Košarica ne obstaja",
@@ -141,7 +144,7 @@ public class KosaricaVir {
     public Response odstraniKosarico(@PathParam("id") Integer id){
         if(kosaricaZrno.deleteKosarica(id)) {
             return Response
-                    .status(Response.Status.OK)
+                    .ok(id)
                     .build();
         }
 

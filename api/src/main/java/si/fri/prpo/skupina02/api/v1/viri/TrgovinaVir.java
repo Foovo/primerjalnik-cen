@@ -130,7 +130,10 @@ public class TrgovinaVir {
     @APIResponses({
             @APIResponse(
                     description = "Trgovina odstranjena",
-                    responseCode = "200"
+                    responseCode = "200",
+                    content = @Content(
+                            schema = @Schema(implementation = Integer.class)
+                    )
             ),
             @APIResponse (
                     description = "Trgovina ne obstaja",
@@ -140,7 +143,7 @@ public class TrgovinaVir {
     public Response odstraniTrgovino(@PathParam("id") Integer id){
         if(trgovinaZrno.deleteTrgovina(id)) {
             return Response
-                    .status(Response.Status.OK)
+                    .ok(id)
                     .build();
         }
 

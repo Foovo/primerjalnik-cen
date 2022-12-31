@@ -23,7 +23,7 @@ public class Uporabnik {
     private String uporabnisko_ime;
 
     @JsonbTransient
-    @OneToMany(mappedBy = "uporabnik")
+    @OneToMany(mappedBy = "uporabnik", cascade = CascadeType.REMOVE)
     private List<Kosarica> kosarice;
 
     public Integer getId() {

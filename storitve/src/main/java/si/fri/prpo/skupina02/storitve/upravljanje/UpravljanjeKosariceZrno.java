@@ -36,7 +36,7 @@ public class UpravljanjeKosariceZrno {
 
     @Transactional
     public Kosarica ustvariKosarico(UstvariKosaricoDTO ustvariKosaricoDTO) {
-        Uporabnik uporabnik = uporabnikZrno.getById(ustvariKosaricoDTO.getUporabnikId());
+        Uporabnik uporabnik = uporabnikZrno.getById(ustvariKosaricoDTO.getUporabnik_id());
 
         if(uporabnik == null) {
             log.severe("Kosarice ni mogoče ustvariti. Uporabnik ne obstaja.");

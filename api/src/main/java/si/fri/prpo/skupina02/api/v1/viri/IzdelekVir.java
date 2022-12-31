@@ -99,7 +99,7 @@ public class IzdelekVir {
                     description = "Izdelek",
                     responseCode = "201",
                     content = @Content(
-                            schema = @Schema(implementation = Uporabnik.class)
+                            schema = @Schema(implementation = Izdelek.class)
                     )
             ),
             @APIResponse (
@@ -130,7 +130,10 @@ public class IzdelekVir {
     @APIResponses({
             @APIResponse(
                     description = "Izdelek odstranjen",
-                    responseCode = "200"
+                    responseCode = "200",
+                    content = @Content(
+                            schema = @Schema(implementation = Integer.class)
+                    )
             ),
             @APIResponse (
                     description = "Izdelek ne obstaja",
@@ -140,7 +143,7 @@ public class IzdelekVir {
     public Response odstraniIzdelek(@PathParam("id") Integer id){
         if(izdelekZrno.deleteIzdelek(id)) {
             return Response
-                    .status(Response.Status.OK)
+                    .ok(id)
                     .build();
         }
 

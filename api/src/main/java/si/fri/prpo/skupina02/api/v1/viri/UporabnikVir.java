@@ -15,6 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityRequirement;
 import org.eclipse.microprofile.openapi.annotations.servers.Server;
+import si.fri.prpo.skupina02.dtos.PosodbiUporabnikaDTO;
 import si.fri.prpo.skupina02.dtos.UstvariUporabnikaDTO;
 import si.fri.prpo.skupina02.entitete.Uporabnik;
 import si.fri.prpo.skupina02.storitve.anotacije.BeleziKlice;
@@ -140,7 +141,10 @@ public class UporabnikVir {
     @APIResponses({
             @APIResponse(
                     description = "Uporabnik odstranjen",
-                    responseCode = "200"
+                    responseCode = "200",
+                    content = @Content(
+                            schema = @Schema(implementation = Integer.class)
+                    )
             ),
             @APIResponse (
                     description = "Uporabnik ne obstaja",
@@ -150,7 +154,7 @@ public class UporabnikVir {
     public Response odstraniUporabnika(@PathParam("id") Integer id){
         if(uporabnikZrno.deleteUporabnik(id)) {
             return Response
-                    .status(Response.Status.OK)
+                    .ok(id)
                     .build();
         }
 
@@ -172,7 +176,12 @@ public class UporabnikVir {
                     responseCode = "404"
             )
     })
-    public Response posodobiUporabnika(Uporabnik uporabnik){
+    public Response posodobiUporabnika(PosodbiUporabnikaDTO posodbiUporabnikaDTO){
+        Uporabnik uporabnik = uporabnikZrno.getById(posodbiUporabnikaDTO.getId());
+
+        uporabnik.setIme(posodbiUporabnikaDTO.getIme());
+        uporabnik.setPriimek(posodbiUporabnikaDTO.getPriimek());
+
         if(uporabnikZrno.updateUporabnik(uporabnik)) {
             return Response
                     .status(Response.Status.OK)
